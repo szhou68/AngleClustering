@@ -1,4 +1,4 @@
 # AngleClustering
-A hierarchical clustering algorithm for clustering weighted angle values. The related paper has been submitted to a conference.
+A hierarchical clustering algorithm for clustering weighted angle values. A paper has been submitted to a conference.
 
-This repo will hold the code that's being tidying up. I will upload the cleaned code soon.
+I am tidying up the code and will upload the code soon.

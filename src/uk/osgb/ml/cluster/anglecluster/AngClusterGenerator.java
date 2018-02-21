@@ -497,7 +497,9 @@ public class AngClusterGenerator<T> {
 						cluSet.remove(clu);
 						cluSet.remove(cluNext);
 						MergeEvalRlt rltNext = rltIdx.get(cluNext);
-						rltSet.remove(rltNext);
+						if(rltNext!=null) {
+							rltSet.remove(rltNext);
+						}
 
 						rltIdx.remove(clu);
 						rltIdx.remove(cluNext);
@@ -515,7 +517,9 @@ public class AngClusterGenerator<T> {
 						AngCluster cluPrev = clu.getPrev();
 						if(cluPrev!= clu){
 							MergeEvalRlt rltPrev = rltIdx.get(cluPrev);
-							rltSet.remove(rltPrev);
+							if(rltPrev!=null) {
+								rltSet.remove(rltPrev);
+							}
 							rltIdx.remove(cluPrev);
 							rltPrev = evaluator.evaluate(cluPrev, clu);
 							rltSet.add(rltPrev);

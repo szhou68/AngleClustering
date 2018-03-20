@@ -676,12 +676,16 @@ public class AngClusterGenerator<T> {
 			System.out.println("total Variance:" + totalVar);
 			//
 			Double[] varArray = new Double[cluSet.size()];
-			Double[] silArray = new Double[cluSet.size()];
+			Double[] aveSilArray = new Double[cluSet.size()];
+			Double[] minSilArray = new Double[cluSet.size()];
+			
 			
 			for(int i = 0; i < varArray.length; ++i){
 				varArray[i] = getWithinCluserVariation(cluSet);
 				//silArray[i] = AngClusterGenerator.computeAverageSilhouette(cluSet);
-				silArray[i] = AngClusterGenerator.computeAverageSilhouetteWeighted(cluSet);
+				double[] rlt = AngClusterGenerator.computeAverageSilhouetteWeighted(cluSet);
+				aveSilArray[i] = rlt[0];
+				minSilArray[i] = rlt[1];
 				//report(cluSet);
 				MergeEvalRlt minRlt = rltSet.pollFirst();
 				if(minRlt!=null){
@@ -723,7 +727,7 @@ public class AngClusterGenerator<T> {
 			// find the optimial number of clusters
 			System.out.println("Total within-cluster variance and Average Silhouette: ");
 			for(int i = 0; i < varArray.length; ++i){
-				System.out.println((varArray.length - i) + ", " + varArray[i] + ", " + silArray[i]);
+				System.out.println((varArray.length - i) + ", " + varArray[i] + ", " + aveSilArray[i] + ", " + minSilArray[i]);
 			}
 			//System.out.println("symmetric difference quotient: ");
 			double sf = varArray.length-1;
@@ -930,15 +934,20 @@ public class AngClusterGenerator<T> {
 		return sumSiAve;
 	}
 	//
-	private static double computeAverageSilhouetteWeighted(Collection<AngCluster> clus){
+	private static double[] computeAverageSilhouetteWeighted(Collection<AngCluster> clus){
 		double sumSi = 0.0; // sum of silhouette 
+		double minSi = 1.0;
 		double numSamp = 0; // number of samples
+		double[] rlt = new double[2];
+		rlt[0] = 1.0;
+		rlt[1] = 1.0; // smallest max_silhouette for cluster
 		if(clus.size() == 1){
-			return 0.0; //?
+			return rlt; //?
 		}
 		for(AngCluster clu:clus){// for each cluster
 			//System.out.println(clu.getAng());
 			double sumSiClu = 0.0;
+			double siMaxClu = 0.0;
 			Collection<AngRef> refs = clu.getMembers();
 			double aveWeight = clu.getWeight() / refs.size();
 			numSamp+=refs.size();
@@ -977,14 +986,23 @@ public class AngClusterGenerator<T> {
 					}
 					si = (bi - ai) / Math.max(bi, ai);
 				}
+				if(si > siMaxClu) {
+					siMaxClu = si;
+				}
 				sumSi+=si;
 				sumSiClu+=si;
+			}
+			
+			if(siMaxClu < minSi ) {
+				minSi = siMaxClu;
 			}
 			//System.out.println(refs.size()+", "+sumSiClu/refs.size());
 		}
 		double sumSiAve = sumSi/numSamp;
+		rlt[0] = sumSiAve;
+		rlt[1] = minSi;
 		//System.out.println("average silhouette:" + sumSiAve);
-		return sumSiAve;
+		return rlt;
 	}
 /*
  * 

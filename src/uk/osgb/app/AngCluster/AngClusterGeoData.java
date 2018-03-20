@@ -692,10 +692,27 @@ public class AngClusterGeoData {
 	}
 	//
 	public static void main(String[] args){
-		List<Feature> feats = JUMPUtility.loadShapeFile("D:/temp/ac02.shp", null, false, null);
-		clusteringJTSFeatures(feats, "D:/temp/ac02_m0t00.shp", null, 1.0, 15, 0, 0.0);
-		clusteringJTSFeatures(feats, "D:/temp/ac02_m2t00.shp", null, 1.0, 15, 2, 0.0);
-		clusteringJUMPFeatures(feats, "D:/temp/ac02_m4t00.shp", null, 1.0, 15, 4, 0.0);
+		//List<Feature> feats = JUMPUtility.loadShapeFile("D:/temp/ac02.shp", null, false, null);
+		/*
+		List<Feature> feats = JUMPUtility.loadShapeFile("D:/temp/SX99-TA_descriptiv_contains_Building.shp", "fid", false, null);		
+		//clusteringJTSFeatures(feats, "D:/temp/ac02_m2t00.shp", null, 1.0, 15, 2, 0.0);
+		clusteringJUMPFeatures(feats, "D:/temp/sx99rlt_10_15_0_15.shp", "fid", 1.0, 15, 0, 15.0);
+		clusteringJUMPFeatures(feats, "D:/temp/sx99rlt_10_15_2_15.shp", "fid", 1.0, 15, 2, 15.0);
+		clusteringJUMPFeatures(feats, "D:/temp/sx99rlt_10_15_4_15.shp", "fid", 1.0, 15, 4, 15.0);
+		*/
+		testWKTElbow("D:/temp/ac02.shp", "D:/temp/ac02_m2t00_elbow.shp", 0, 0.0);
+		//testWKTElbow("D:/temp/ac03.shp", "D:/temp/ac03_m0t00_elbow.shp", 2, 15.0);
+		//testWKTElbow("D:/temp/ac01s.shp", "D:/temp/ac01s_m2t00_elbow.shp", 2, 15.0);
+		//testWKTElbow("D:/temp/ac04.shp", "D:/temp/ac04_m0t00_elbow.shp", 0, 0.0);
+		/*
+		testWKT("D:/temp/ac01.shp", "D:/temp/ac01_m0t00ec2.shp", 0.01, 0, 0.0);
+		testWKT("D:/temp/ac01.shp", "D:/temp/ac01_m2t00ec2.shp", 0.01, 2, 0.0);
+		testWKT("D:/temp/ac01.shp", "D:/temp/ac01_m2t15ec2.shp", 0.01, 2, 15.0);
+		testWKT("D:/temp/ac01.shp", "D:/temp/ac01_m4t00ec2.shp", 0.01, 4, 0.0);
+		testWKT("D:/temp/ac01.shp", "D:/temp/ac01_m4t15ec2.shp", 0.01, 4, 15.0);
+		*/
+		//testWKT("D:/temp/ac02.shp", "D:/temp/ac02_m0t00ec3.shp", 0.01, 0, 0.0);
+
 		
 	}
 
